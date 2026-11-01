@@ -1,0 +1,58 @@
+.questionOneLocation {
+  color: white;
+  margin-top: 50px;
+}
+
+.searchFormContainer {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  flex-direction: column;
+}
+
+.searchInputBox input {
+  margin-top: 20px;
+  background: transparent;
+  width: 50%;
+  outline: none;
+  height: 50px;
+  border-radius: 10px;
+  border: 5px solid rgba(109, 71, 206, 0.293);
+}
+
+.options {
+  color: white;
+  font-size: 24px;
+}
+
+.daysSelection {
+  display: flex;
+
+  justify-content: space-evenly;
+  height: 20px;
+}
+
+.daysSelection button {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  outline: none;
+    border: 2px solid rgba(109, 71, 206, 0.293);
+  height: 50px;
+  border-radius: 10px;
+  background: transparent;
+  color: gray;
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.questionTwoAmount {
+
+    margin-top: 40px;
+    font-size: 25px;
+    color: white;
+   
+}

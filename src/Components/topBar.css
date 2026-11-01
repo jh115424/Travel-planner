@@ -1,0 +1,11 @@
+.itineraryContainer {
+  background-color: rgb(17, 8, 24);
+  width: 100%;
+  min-height: 100vh;
+}
+
+.itineraryTitle {
+  color: rgb(150, 123, 198);
+  font-size: x-large;
+  margin-top: 80px;
+}
