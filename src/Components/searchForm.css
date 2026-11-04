@@ -1,6 +1,7 @@
 .questionOneLocation {
   color: white;
   margin-top: 50px;
+  font-size: 25px;
 }
 
 .searchFormContainer {
@@ -40,7 +41,7 @@
   justify-content: space-evenly;
   align-items: center;
   outline: none;
-    border: 2px solid rgba(109, 71, 206, 0.293);
+  border: 2px solid rgba(109, 71, 206, 0.293);
   height: 50px;
   border-radius: 10px;
   background: transparent;
@@ -50,9 +51,38 @@
 }
 
 .questionTwoAmount {
+  margin-top: 40px;
+  font-size: 25px;
+  color: white;
+}
 
-    margin-top: 40px;
-    font-size: 25px;
-    color: white;
-   
+.daysSelection button.activeDay {
+  background-color: rgba(109, 71, 206, 1);
+  border: none;
+}
+
+.inactiveDay {
+  background: transparent;
+}
+
+.generateContainer {
+  margin-top: 80px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.itineraryResponse {
+  color: white;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.generateButton {
+  background-color: rgba(109, 71, 206, 1);
+  border-radius: 10px;
+  width: 50%;
+  font-size: 25px;
+  color: white;
 }

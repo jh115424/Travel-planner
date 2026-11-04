@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./searchForm.css";
+import { askAI } from "../api";
 
 export default function SearchForm() {
   const [city, setCity] = useState("");
@@ -8,7 +9,34 @@ export default function SearchForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const button = [3, 7, 10, 4];
+  const button = [3, 7, 10, 5];
+
+  const handleGenerate = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    const prompt = `Create a ${day} day travel itinerary for ${city}. 
+Return JSON only, no extra text, in this format:
+[{"day": 1, "title": "Day title", "activities": ["activity 1", "activity 2", "activity 3"]}, ...]`;
+
+    try {
+      const data = await askAI(prompt);
+      if (data.choices[0].message.content) {
+        setItinerary(
+          JSON.parse(
+            data.choices[0].message.content.replace(/```json|```/g, "").trim(),
+          ),
+        );
+      } else {
+        setError("No response from A.I. Try again");
+      }
+    } catch {
+      setError("Something went wrong. Try again");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="searchFormContainer">
@@ -25,46 +53,42 @@ export default function SearchForm() {
             }}
           />
         </div>
-           <p className="questionTwoAmount">How many days?</p>
+        <p className="questionTwoAmount">How many days?</p>
         <div className="daysSelection">
-         
           {button.map((btn) => {
-            return <button key={btn} onClick={() => setDays(btn)}>{btn}</button>;
+            return (
+              <button
+                className={day === btn ? "activeDay" : "inactiveDay"}
+                key={btn}
+                onClick={() => setDays(btn)}
+              >
+                {btn}
+              </button>
+            );
           })}
-          
         </div>
+      </div>
+      <div className="generateContainer">
+        <button
+          className="generateButton"
+          onClick={handleGenerate}
+          disabled={loading || !city}
+        >
+          {loading ? "Generating..." : "Generate my itinerary"}
+        </button>
+        {error && <p>{error}</p>}
+        {itinerary.length > 0 &&
+          itinerary.map((item) => (
+            <div key={item.day} className="dayCard">
+              <p>
+                Day {item.day}: {item.title}
+              </p>
+              {item.activities.map((act, i) => (
+                <p key={i}>{act}</p>
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   );
 }
-
-// Step 2 — SearchForm component
-// Create SearchForm.jsx. Think about what data this form needs from App to work, and what it needs to be able to change.
-// It needs a city text input, the 4 day pill options, and a Generate button.
-// Figure out what props it needs and what the active pill needs to look different from the others.
-
-// Step 3 — DayCard component
-// Create DayCard.jsx. It displays one single day’s information.
-// Think about what a day object would contain and how you’d display each piece of it.
-
-// Step 4 — ItineraryResults component
-// Create ItineraryResults.jsx. It receives the full list of days and
-//  is responsible for rendering them. Think about how you’d loop through that list.
-
-// Step 5 — ScrollIndicator component
-// Create ScrollIndicator.jsx. Static. One line of text at the bottom.
-
-// Step 6 — App.jsx structure
-// This is where all state lives. Think about what data the app needs to track
-//  across all components. Wire everything together and pass down what each component needs.
-// handleGenerate is a placeholder for now.
-
-// Step 7 — OpenAI API call
-// Fill in handleGenerate for real. Think about what needs to happen before, during,
-// and after the API call, and what format you need to tell the AI to respond in.
-
-// Step 8 — Loading and error states
-// Handle what the user sees while waiting and if something goes wrong.
-
-// Step 9 — CSS dark theme
-// Style everything to match the mockup on the side panel.
