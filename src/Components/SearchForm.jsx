@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./searchForm.css";
 import { askAI } from "../api";
 
 export default function SearchForm() {
   const [city, setCity] = useState("");
   const [day, setDays] = useState(5);
-  const [itinerary, setItinerary] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
+  const [itinerary, setItinerary] = useState(
+    JSON.parse(localStorage.getItem("itinerary")) || [],
+  );
   const button = [3, 7, 10, 5];
 
   const handleGenerate = async (e) => {
@@ -37,6 +39,10 @@ Return JSON only, no extra text, in this format:
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("itinerary", JSON.stringify(itinerary));
+  }, [itinerary]);
 
   return (
     <div className="searchFormContainer">
@@ -80,11 +86,12 @@ Return JSON only, no extra text, in this format:
         {itinerary.length > 0 &&
           itinerary.map((item) => (
             <div key={item.day} className="dayCard">
-              <p>
-                Day {item.day}: {item.title}
-              </p>
+              <div className="dayCardHeader">
+                <span className="dayBadge">Day {item.day}</span>
+                <span className="dayTitle">{item.title}</span>
+              </div>
               {item.activities.map((act, i) => (
-                <p key={i}>{act}</p>
+                <p key={i}>□ {act}</p>
               ))}
             </div>
           ))}

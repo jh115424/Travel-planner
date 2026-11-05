@@ -9,14 +9,7 @@ export default function TopBar() {
       <div className="itineraryTitle">✈️ AI Travel Planner</div>
       <br />
 
-<SearchForm/>
+      <SearchForm />
     </div>
   );
 }
-
-// App.jsx
-// TopBar.jsx
-// SearchForm.jsx
-// ItineraryResults.jsx
-// DayCard.jsx
-// ScrollIndicator.jsx
