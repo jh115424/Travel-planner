@@ -44,6 +44,11 @@ Return JSON only, no extra text, in this format:
     localStorage.setItem("itinerary", JSON.stringify(itinerary));
   }, [itinerary]);
 
+  const handleClear = () => {
+    setItinerary([]);
+    localStorage.removeItem("itinerary");
+  };
+
   return (
     <div className="searchFormContainer">
       <div className="locationQuestion">
@@ -96,6 +101,11 @@ Return JSON only, no extra text, in this format:
             </div>
           ))}
       </div>
+      {itinerary.length > 0 && (
+        <button className="clearButton" onClick={handleClear}>
+          Clear
+        </button>
+      )}
     </div>
   );
 }
